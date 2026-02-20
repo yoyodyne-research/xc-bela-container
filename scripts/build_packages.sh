@@ -1,14 +1,9 @@
 #!/bin/bash -e
-grep 'docker\|lxc' /proc/1/cgroup > /dev/null 2>&1 || {
-    echo This script should only be called in a container. Consult the README for instructions
-    exit 1
-}
 
 apt-get update
-apt-get install -y wget gpg apt-utils #apt-transport-https ca-certificates
+apt-get install -y wget gpg apt-utils apt-transport-https ca-certificates
 
 echo "deb http://apt.llvm.org/stretch/ llvm-toolchain-stretch-10 main" >> /etc/apt/sources.list.d/llvm10.list
-echo "deb http://http.us.debian.org/debian/ stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list
 
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
 apt-get update
